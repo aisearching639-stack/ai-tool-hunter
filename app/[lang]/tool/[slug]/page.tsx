@@ -7,13 +7,16 @@ import ToolContent from '../../../../components/ToolContent'
 import StickyFooter from '../../../../components/StickyFooter'
 import { getDictionary, Locale } from '@/lib/i18n'
 
-export default async function ToolDetailPage({ params }: { params: { lang: Locale; slug: string } }) {
-  const dict = await getDictionary(params.lang)
+type Props = { params: Promise<{ lang: Locale; slug: string }> }
+
+export default async function ToolDetailPage(props: Props) {
+  const p = await props.params
+  const dict = await getDictionary(p.lang)
   const mockToolData = {
     breadcrumbs: [
-      { label: 'Home', href: `/${params.lang}` },
-      { label: 'Generative Art', href: `/${params.lang}/category` },
-      { label: params.slug },
+      { label: 'Home', href: `/${p.lang}` },
+      { label: 'Generative Art', href: `/${p.lang}/category` },
+      { label: p.slug },
     ],
     title: 'Midjourney',
     logoUrl:
@@ -66,7 +69,7 @@ export default async function ToolDetailPage({ params }: { params: { lang: Local
 
   return (
     <div className="min-h-screen flex flex-col bg-background-dark">
-      <Navbar dict={dict} lang={params.lang} />
+      <Navbar dict={dict} lang={p.lang} />
       <main className="relative flex flex-col min-h-screen pb-32">
         <div className="flex flex-col items-center">
           <div className="w-full max-w-[1200px] px-4 md:px-8 lg:px-12 py-8 flex flex-col gap-8">
@@ -137,4 +140,3 @@ export default async function ToolDetailPage({ params }: { params: { lang: Local
     </div>
   )
 }
-

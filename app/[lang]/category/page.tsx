@@ -8,14 +8,21 @@ import { getDictionary, Locale } from '@/lib/i18n'
 
 export const dynamic = 'force-dynamic'
 
-export default async function CategoryPage({ params, searchParams }: { params: { lang: Locale }; searchParams?: { tag?: string; filter?: string; search?: string } }) {
-  const dict = await getDictionary(params.lang)
+type Props = {
+  params: Promise<{ lang: Locale }>
+  searchParams: Promise<{ tag?: string; filter?: string; search?: string }>
+}
+
+export default async function CategoryPage(props: Props) {
+  const p = await props.params
+  const sp = (await props.searchParams) || {}
+  const dict = await getDictionary(p.lang)
   const tools = await getTools().catch((e) => {
     console.error('getTools() failed on CategoryPage:', e)
     return []
   })
-  const q = (searchParams?.tag ?? searchParams?.filter ?? '').trim()
-  const s = (searchParams?.search ?? '').trim()
+  const q = (sp.tag ?? sp.filter ?? '').trim()
+  const s = (sp.search ?? '').trim()
   const norm = (x: string) => x.toLowerCase()
   const filteredBase = q ? tools.filter((t) => t.category && norm(t.category) === norm(q)) : tools
   const filtered = s
@@ -30,7 +37,7 @@ export default async function CategoryPage({ params, searchParams }: { params: {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar dict={dict} lang={params.lang} />
+      <Navbar dict={dict} lang={p.lang} />
       <main className="flex flex-1">
         <FilterSidebar dict={dict} />
         <div className="flex-1 flex flex-col">
