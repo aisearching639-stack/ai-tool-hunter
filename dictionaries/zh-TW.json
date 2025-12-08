@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "discover": "探索",
+    "categories": "分類",
+    "subscribe": "訂閱"
+  },
+  "cta": {
+    "visit": "前往官網",
+    "try": "免費試用"
+  },
+  "footer": {
+    "copyright": "© 2025 AI Tool Hunter"
+  },
+  "filters": {
+    "pricing": "價格範圍",
+    "title": "篩選工具",
+    "reset": "重設"
+  },
+  "home": {
+    "hero_title": "探索高價值 AI 資產與點數",
+    "hero_subtitle": "為專業創作者與開發者精選工具，透過獨家獎勵與佣金找到最佳 AI 軟體。",
+    "search_placeholder": "搜尋工具、任務或獎勵...",
+    "search_button": "搜尋",
+    "trending_title": "熱門分類",
+    "top_finds": "今日精選",
+    "view_all": "檢視全部",
+    "search_results_for": "搜尋結果："
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "discover": "Discover",
+    "categories": "Categories",
+    "subscribe": "Subscribe"
+  },
+  "cta": {
+    "visit": "Visit Website",
+    "try": "Try for Free"
+  },
+  "footer": {
+    "copyright": "© 2025 AI Tool Hunter"
+  },
+  "filters": {
+    "pricing": "Pricing Range",
+    "title": "Filter Tools",
+    "reset": "Reset"
+  },
+  "home": {
+    "hero_title": "Discover High-Value AI Assets & Credits",
+    "hero_subtitle": "Curated tools for professional creators and developers. Find the best AI software with exclusive rewards and commissions.",
+    "search_placeholder": "Search for tools, tasks, or rewards...",
+    "search_button": "Search",
+    "trending_title": "Trending Categories",
+    "top_finds": "Today's Top Finds",
+    "view_all": "View All",
+    "search_results_for": "Search results for:"
+  }
+}

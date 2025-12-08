@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Tool Hunter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#007BFF",
+                        "primary-dark": "#0062cc",
+                        "accent-purple": "#8A2BE2",
+                        "accent-green": "#00FF9D",
+                        "accent-gold": "#FFD700",
+                        "background-dark": "#121212",
+                        "surface-dark": "#1E1E1E",
+                        "surface-darker": "#181818",
+                        "border-dark": "#333333",
+                        "text-light": "#B0B0B0",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 10px rgba(0, 123, 255, 0.3)',
+                        'neon-purple': '0 0 10px rgba(138, 43, 226, 0.3)',
+                        'glow': '0 0 20px rgba(0, 123, 255, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-body antialiased overflow-x-hidden">
+<div class="flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 text-white">
+<div class="flex h-8 w-8 items-center justify-center rounded bg-gradient-to-br from-primary to-accent-purple shadow-neon-blue">
+<span class="material-symbols-outlined text-[20px] text-white">radar</span>
+</div>
+<h2 class="font-display text-xl font-bold tracking-tight text-white">AI Tool Hunter</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-text-light hover:text-white transition-colors" href="#">Discover</a>
+<a class="text-sm font-medium text-text-light hover:text-white transition-colors" href="#">Categories</a>
+<a class="text-sm font-medium text-text-light hover:text-white transition-colors" href="#">Creator Toolkit</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex group relative items-center justify-center overflow-hidden rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-white/10 hover:border-accent-purple/50 hover:shadow-neon-purple">
+<span class="relative z-10 flex items-center gap-2">
+                            Log In
+                        </span>
+</button>
+<button class="group relative flex items-center justify-center overflow-hidden rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white shadow-lg transition-all hover:bg-primary-dark hover:scale-105 hover:shadow-neon-blue">
+<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+<span class="relative z-10">Subscribe</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<div class="relative w-full overflow-hidden bg-background-dark py-16 sm:py-24">
+<!-- Background decorative elements -->
+<div class="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-[120px]"></div>
+<div class="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-accent-purple/10 blur-[120px]"></div>
+<div class="relative mx-auto max-w-4xl px-4 text-center">
+<h1 class="font-display text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl md:text-6xl text-glow">
+                        Discover High-Value <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple">AI Assets &amp; Credits</span>
+</h1>
+<p class="mt-4 text-lg text-text-light max-w-2xl mx-auto">
+                        Curated tools for professional creators and developers. Find the best AI software with exclusive rewards and commissions.
+                    </p>
+<div class="mt-10 flex justify-center">
+<div class="relative flex w-full max-w-2xl flex-col gap-2 sm:flex-row sm:items-center p-1 rounded-xl bg-surface-dark border border-border-dark shadow-2xl ring-1 ring-white/10 focus-within:ring-primary focus-within:ring-2 transition-all">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+<span class="material-symbols-outlined text-text-light">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 bg-transparent py-4 pl-12 pr-4 text-white placeholder:text-gray-500 focus:ring-0 sm:text-base font-body" placeholder="Search for tools, tasks, or rewards..." type="text"/>
+<button class="m-1 rounded-lg bg-primary px-8 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-primary-dark hover:shadow-neon-blue sm:w-auto">
+                                Search
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Two Column Layout -->
+<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-12">
+<!-- Left Column: Featured Tools (Main Feed) -->
+<div class="lg:col-span-8 space-y-6">
+<div class="flex items-center justify-between pb-2 border-b border-white/10">
+<h2 class="font-display text-2xl font-bold text-white">Today's Top Finds</h2>
+<a class="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-1" href="#">
+                                View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Card 1 -->
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-xl bg-surface-dark border border-white/5 p-5 transition-all hover:-translate-y-1 hover:border-accent-purple/30 hover:shadow-neon-purple sm:flex-row sm:items-center">
+<div class="flex-shrink-0">
+<div class="h-24 w-24 rounded-lg bg-cover bg-center shadow-inner" data-alt="Jasper AI Logo Placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhRlwfNeRTQtZxVlfFMiXOH9Up0kIYYjzkG4yuj9hr8KG3IMgqVe4ASGJ9jyEJsY3fKBARueBvL93rmo8uFm-jHN1yPKu0joi-3UPckMSDetRZruvZFG8_nG33KQVGx_Hz2vDnrVpXjig2WmHNuIaQBlYTJli1KFvDsAg4avz-7qEOE_SmdjeSXoNfrgP_Tm9jfd86aS9PqWE5zHrTRUhCCuFd1dXgDdteWQIqLhGwN2-9JO-I-zdGQJowKEb7UkvTVNRGrCyMAO0');"></div>
+</div>
+<div class="flex flex-1 flex-col gap-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-display text-xl font-bold text-white group-hover:text-primary transition-colors">Jasper AI</h3>
+<p class="text-sm text-text-light mt-1 line-clamp-2">Enterprise-grade AI writing assistant built for marketing teams and content creators.</p>
+</div>
+<span class="inline-flex items-center rounded-full bg-accent-purple/10 border border-accent-purple/20 px-3 py-1 text-xs font-semibold text-accent-purple uppercase tracking-wider whitespace-nowrap shadow-[0_0_10px_rgba(138,43,226,0.1)]">
+<span class="material-symbols-outlined text-[14px] mr-1">bolt</span>
+                                        500 Free Credits
+                                    </span>
+</div>
+<div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">category</span> Copywriting</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">star</span> 4.8/5</span>
+</div>
+</div>
+<div class="mt-4 flex sm:mt-0 sm:flex-col sm:items-end sm:justify-center">
+<button class="rounded-lg bg-white/5 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 border border-white/10 group-hover:border-primary/50">
+                                    View Deal
+                                </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-xl bg-surface-dark border border-white/5 p-5 transition-all hover:-translate-y-1 hover:border-primary/30 hover:shadow-neon-blue sm:flex-row sm:items-center">
+<div class="flex-shrink-0">
+<div class="h-24 w-24 rounded-lg bg-cover bg-center shadow-inner" data-alt="MidJourney Logo Placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-9qL2Kx_9tv_RaHEiTw6LWbIlQQ0ka0n9U1DkC7y3tXvA2HdhSsO5qW0BAKaOFa6tqZqTESdN5Fgk8XgIvtr9kI1i4FIvW_gi5ZQjiZKOxLDNQdMo8VBBSNNephdta2tcAMCTlD98xzjkZDm3fwDPNnHZknoZon02EOHHP9BOaKHH8XI93zaUtLZS5ivBf-5SrfcHmGoDiLvh1k-mvoXkI6Jzu3A9HjKmtg7jyEmF-upGBk60_7FPzi-nWbLl0vxB2vbv4pOeWX0');"></div>
+</div>
+<div class="flex flex-1 flex-col gap-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-display text-xl font-bold text-white group-hover:text-primary transition-colors">MidJourney</h3>
+<p class="text-sm text-text-light mt-1 line-clamp-2">Generative art for professionals. Create stunning visuals from simple text prompts.</p>
+</div>
+<span class="inline-flex items-center rounded-full bg-primary/10 border border-primary/20 px-3 py-1 text-xs font-semibold text-primary uppercase tracking-wider whitespace-nowrap shadow-[0_0_10px_rgba(0,123,255,0.1)]">
+<span class="material-symbols-outlined text-[14px] mr-1">rocket_launch</span>
+                                        Fast-Track Access
+                                    </span>
+</div>
+<div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">category</span> Image Gen</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">star</span> 4.9/5</span>
+</div>
+</div>
+<div class="mt-4 flex sm:mt-0 sm:flex-col sm:items-end sm:justify-center">
+<button class="rounded-lg bg-white/5 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 border border-white/10 group-hover:border-primary/50">
+                                    View Deal
+                                </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative flex flex-col gap-4 overflow-hidden rounded-xl bg-surface-dark border border-white/5 p-5 transition-all hover:-translate-y-1 hover:border-accent-green/30 hover:shadow-[0_0_15px_rgba(0,255,157,0.15)] sm:flex-row sm:items-center">
+<div class="flex-shrink-0">
+<div class="h-24 w-24 rounded-lg bg-cover bg-center shadow-inner" data-alt="Synthesia Logo Placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA0QIdiy-yUN_Mt74museMkpOmlr0Etpy7ID7JJkZgyPev_nPCjotaciPTbV3Baj_5hjCzNLaeTWv36U5bmVoLbBTfa-Ydu07xBb_L7smjv2s-4_aVeGzqe4iCRpM5ZAysS786fa_WJe6laVZHw4vBPxT8YuvEeiRToKQ5awVIB-Zvb7qwg9v-T3VZ9fLGhuN4QcvC25qFRVpvy9TGQAKYxCfusnf7G0KAFQiomu1bxO-yQoAL-83ycoMP38sFY3qH1pi9T32Fn2BA');"></div>
+</div>
+<div class="flex flex-1 flex-col gap-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-display text-xl font-bold text-white group-hover:text-primary transition-colors">Synthesia</h3>
+<p class="text-sm text-text-light mt-1 line-clamp-2">AI video generation platform. Create videos from plain text in minutes.</p>
+</div>
+<span class="inline-flex items-center rounded-full bg-accent-green/10 border border-accent-green/20 px-3 py-1 text-xs font-semibold text-accent-green uppercase tracking-wider whitespace-nowrap shadow-[0_0_10px_rgba(0,255,157,0.1)]">
+<span class="material-symbols-outlined text-[14px] mr-1">attach_money</span>
+                                        $50 Commission
+                                    </span>
+</div>
+<div class="mt-2 flex items-center gap-4 text-xs text-gray-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">category</span> Video</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">star</span> 4.7/5</span>
+</div>
+</div>
+<div class="mt-4 flex sm:mt-0 sm:flex-col sm:items-end sm:justify-center">
+<button class="rounded-lg bg-white/5 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 border border-white/10 group-hover:border-primary/50">
+                                    View Deal
+                                </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Trending Categories Widget -->
+<div class="rounded-xl bg-surface-dark border border-white/5 p-6">
+<h3 class="font-display text-lg font-bold text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">trending_up</span>
+                                Trending Categories
+                            </h3>
+<nav class="flex flex-col gap-1">
+<a class="group flex items-center justify-between rounded-lg p-2 text-sm text-text-light hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="flex items-center gap-3">
+<span class="flex h-8 w-8 items-center justify-center rounded bg-white/5 text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">brush</span>
+</span>
+                                        Generative Art
+                                    </span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between rounded-lg p-2 text-sm text-text-light hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="flex items-center gap-3">
+<span class="flex h-8 w-8 items-center justify-center rounded bg-white/5 text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</span>
+                                        Coding Assistants
+                                    </span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between rounded-lg p-2 text-sm text-text-light hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="flex items-center gap-3">
+<span class="flex h-8 w-8 items-center justify-center rounded bg-white/5 text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+</span>
+                                        Large Language Models
+                                    </span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between rounded-lg p-2 text-sm text-text-light hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="flex items-center gap-3">
+<span class="flex h-8 w-8 items-center justify-center rounded bg-white/5 text-white group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+</span>
+                                        Voice Synthesis
+                                    </span>
+<span class="material-symbols-outlined text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+</nav>
+</div>
+<!-- Newsletter Widget -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-dark to-surface-darker border border-white/5 p-6">
+<div class="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-accent-green/10 blur-[40px]"></div>
+<h3 class="relative font-display text-lg font-bold text-white mb-2">Stay Ahead</h3>
+<p class="relative text-sm text-text-light mb-4">Get the top 5 AI tools and commission opportunities delivered weekly.</p>
+<form class="relative flex flex-col gap-2">
+<label class="sr-only" for="email">Email address</label>
+<input class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-accent-green focus:ring-1 focus:ring-accent-green" id="email" placeholder="you@example.com" required="" type="email"/>
+<button class="w-full rounded-lg bg-accent-green/90 px-3 py-2 text-sm font-bold text-black transition-colors hover:bg-accent-green hover:shadow-[0_0_15px_rgba(0,255,157,0.3)]" type="submit">
+                                    Join Newsletter
+                                </button>
+</form>
+<div class="mt-3 flex items-center gap-2">
+<div class="flex -space-x-2">
+<div class="h-6 w-6 rounded-full border border-surface-dark bg-gray-500 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH429EdWzt6VGr-MRJnvRoliIYf4AT_i3i2yp-qdIw2wWHPbqU-kgPBKD2FqsNObehujvxvF9_NIn40FQ3VpSe6km9szH67mS6FdiLAG9826_x_qo_m04d8Wnkg12sO5TFHKqhQkDjqD4lwJJpPGD82ofrM6KVsYutIObtjy_lCeE5sOB5iatzjQ18as9SRWi2fsESQZeuOuxjztV5sffMPsVhmzXsqyFThDw9W4YIMYIW2D7yZsqnMw-ltUUR1Dk65HXfUF0xeRg');"></div>
+<div class="h-6 w-6 rounded-full border border-surface-dark bg-gray-400 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH429EdWzt6VGr-MRJnvRoliIYf4AT_i3i2yp-qdIw2wWHPbqU-kgPBKD2FqsNObehujvxvF9_NIn40FQ3VpSe6km9szH67mS6FdiLAG9826_x_qo_m04d8Wnkg12sO5TFHKqhQkDjqD4lwJJpPGD82ofrM6KVsYutIObtjy_lCeE5sOB5iatzjQ18as9SRWi2fsESQZeuOuxjztV5sffMPsVhmzXsqyFThDw9W4YIMYIW2D7yZsqnMw-ltUUR1Dk65HXfUF0xeRg');"></div>
+<div class="h-6 w-6 rounded-full border border-surface-dark bg-gray-300 bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH429EdWzt6VGr-MRJnvRoliIYf4AT_i3i2yp-qdIw2wWHPbqU-kgPBKD2FqsNObehujvxvF9_NIn40FQ3VpSe6km9szH67mS6FdiLAG9826_x_qo_m04d8Wnkg12sO5TFHKqhQkDjqD4lwJJpPGD82ofrM6KVsYutIObtjy_lCeE5sOB5iatzjQ18as9SRWi2fsESQZeuOuxjztV5sffMPsVhmzXsqyFThDw9W4YIMYIW2D7yZsqnMw-ltUUR1Dk65HXfUF0xeRg');"></div>
+</div>
+<span class="text-xs text-gray-500">Join 12,000+ hunters</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Simple) -->
+<footer class="mt-16 border-t border-white/5 bg-surface-darker py-12">
+<div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+<p class="text-sm text-gray-500">© 2023 AI Tool Hunter. All rights reserved.</p>
+<div class="mt-4 flex justify-center gap-6">
+<a class="text-gray-500 hover:text-white" href="#"><span class="sr-only">Twitter</span><svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg></a>
+<a class="text-gray-500 hover:text-white" href="#"><span class="sr-only">GitHub</span><svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg></a>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

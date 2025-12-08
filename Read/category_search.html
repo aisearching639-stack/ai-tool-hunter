@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Directory - Category Search Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#007BFF", // Electric Blue
+                        "secondary": "#8A2BE2", // Neon Purple
+                        "accent": "#00FF94", // Neon Green
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#121212", // Deep Charcoal
+                        "surface-dark": "#1E1E1E",
+                        "surface-dark-lighter": "#2A2A2A",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'glow-primary': '0 0 15px rgba(0, 123, 255, 0.3)',
+                        'glow-secondary': '0 0 15px rgba(138, 43, 226, 0.3)',
+                        'glow-card': '0 0 0 1px rgba(255,255,255,0.05), 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)',
+                        'glow-card-hover': '0 0 0 1px #8A2BE2, 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(138, 43, 226, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A2A; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3A3A3A; 
+        }
+
+        /* Range Slider Styling */
+        input[type=range]::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 16px;
+            height: 16px;
+            -webkit-appearance: none;
+            @apply bg-primary rounded-full shadow-glow-primary;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-body antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#121212]/90 backdrop-blur-md">
+<div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-8">
+<!-- Logo -->
+<a class="flex items-center gap-2 group" href="#">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary text-white shadow-glow-primary transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<span class="font-display text-xl font-bold tracking-tight text-white">AI Directory</span>
+</a>
+<!-- Nav Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-white/70 hover:text-white transition-colors" href="#">Categories</a>
+<a class="text-sm font-medium text-white/70 hover:text-white transition-colors" href="#">Top Rated</a>
+<a class="text-sm font-medium text-white/70 hover:text-white transition-colors" href="#">Community</a>
+<a class="text-sm font-medium text-primary hover:text-primary/80 transition-colors" href="#">Submit Tool</a>
+</nav>
+</div>
+<!-- Search & Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex relative group">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-white/40 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-64 rounded-full border border-white/10 bg-surface-dark py-1.5 pl-10 pr-3 text-sm text-white placeholder-white/40 focus:border-primary focus:bg-surface-dark-lighter focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="Search AI tools..." type="text"/>
+</div>
+<div class="flex items-center gap-3 border-l border-white/10 pl-4">
+<button class="flex h-9 items-center justify-center rounded-lg px-4 text-sm font-medium text-white hover:bg-white/5 transition-colors">Log In</button>
+<button class="flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-blue-600 shadow-glow-primary transition-all transform hover:scale-105">Sign Up</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex flex-1">
+<!-- Sidebar Filter Area -->
+<aside class="hidden w-72 flex-col border-r border-white/10 bg-[#121212] lg:flex sticky top-16 h-[calc(100vh-64px)] overflow-y-auto">
+<div class="p-6">
+<div class="mb-6 flex items-center justify-between">
+<h2 class="font-display text-lg font-semibold text-white">Filter Tools</h2>
+<button class="text-xs font-medium text-white/50 hover:text-primary transition-colors">Reset</button>
+</div>
+<!-- Active Filters -->
+<div class="mb-8 flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-white border border-white/10">
+                        Video
+                        <button class="text-white/50 hover:text-white"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-white border border-white/10">
+                        Top Rated
+                        <button class="text-white/50 hover:text-white"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+</div>
+<div class="space-y-8">
+<!-- Reward Type Filter -->
+<div class="group/filter">
+<h3 class="mb-3 flex items-center gap-2 text-sm font-medium text-white/90">
+<span class="material-symbols-outlined text-primary text-[18px]">payments</span>
+                            Reward Type
+                        </h3>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-primary checked:bg-primary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Cash Commission</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input checked="" class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-primary checked:bg-primary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Free Credits</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-primary checked:bg-primary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Free Tier</span>
+</label>
+</div>
+</div>
+<!-- Target Audience Filter -->
+<div class="group/filter">
+<h3 class="mb-3 flex items-center gap-2 text-sm font-medium text-white/90">
+<span class="material-symbols-outlined text-secondary text-[18px]">group</span>
+                            Target Audience
+                        </h3>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-secondary checked:bg-secondary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Creators</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-secondary checked:bg-secondary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Developers</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-secondary checked:bg-secondary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Marketers</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group/item">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 appearance-none rounded border border-white/20 bg-surface-dark checked:border-secondary checked:bg-secondary transition-all focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px] text-white opacity-0 peer-checked:opacity-100">check</span>
+</div>
+<span class="text-sm text-white/70 group-hover/item:text-white transition-colors">Designers</span>
+</label>
+</div>
+</div>
+<!-- Pricing Filter -->
+<div class="group/filter">
+<h3 class="mb-3 flex items-center gap-2 text-sm font-medium text-white/90">
+<span class="material-symbols-outlined text-accent text-[18px]">attach_money</span>
+                            Pricing Range
+                        </h3>
+<div class="pt-2 px-1">
+<input class="w-full h-1 bg-surface-dark-lighter rounded-lg appearance-none cursor-pointer range-sm" max="1000" min="0" type="range"/>
+<div class="mt-2 flex justify-between text-xs font-medium text-white/50 font-display">
+<span>$0</span>
+<span>$500+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Footer -->
+<div class="mt-auto border-t border-white/10 p-6">
+<div class="rounded-xl bg-gradient-to-br from-surface-dark to-surface-dark-lighter p-4 border border-white/5">
+<p class="text-sm font-medium text-white">Need help finding tools?</p>
+<p class="text-xs text-white/50 mt-1 mb-3">Talk to our AI assistant to get personalized recommendations.</p>
+<button class="w-full rounded-lg bg-white/10 py-2 text-xs font-bold text-white hover:bg-white/20 transition-colors">Start Chat</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col">
+<!-- Results Header -->
+<div class="sticky top-16 z-30 flex flex-col gap-4 border-b border-white/10 bg-[#121212]/95 px-6 py-4 backdrop-blur md:flex-row md:items-center md:justify-between lg:px-8">
+<div>
+<h1 class="font-display text-2xl font-bold text-white">Video Generation</h1>
+<p class="mt-1 text-sm text-white/60">Showing 45 tools found</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm text-white/50">Sort by:</span>
+<div class="relative">
+<select class="appearance-none rounded-lg border border-white/10 bg-surface-dark py-2 pl-3 pr-10 text-sm font-medium text-white focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Relevance</option>
+<option>Newest</option>
+<option>Highest Rated</option>
+<option>Most Popular</option>
+</select>
+<span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/50">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</span>
+</div>
+<button class="flex items-center justify-center rounded-lg border border-white/10 bg-surface-dark p-2 text-white/70 hover:bg-surface-dark-lighter hover:text-white md:hidden">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Grid Results -->
+<div class="flex-1 bg-[#121212] p-6 lg:p-8">
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<!-- Tool Card 1 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<!-- Reward Tag -->
+<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/20">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+                            Free Credits
+                        </div>
+<!-- Header -->
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">movie_filter</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">Synthesia</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.8</span>
+<span>(2.1k)</span>
+</div>
+</div>
+</div>
+<!-- Description -->
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            Create professional AI videos from text in 120+ languages. No cameras or mics needed.
+                        </p>
+<!-- Tags -->
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Video</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Avatar</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#TextToSpeech</span>
+</div>
+<!-- Footer Actions -->
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Freemium</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tool Card 2 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-yellow-500 border border-yellow-500/20">
+<span class="material-symbols-outlined text-[12px]">monetization_on</span>
+                            Commission
+                        </div>
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">Runway ML</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.9</span>
+<span>(1.8k)</span>
+</div>
+</div>
+</div>
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            Next-generation creative suite for professionals. Generate videos, images, and more with Gen-2.
+                        </p>
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Generative</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Editing</span>
+</div>
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Paid</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tool Card 3 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/20">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+                            Free Credits
+                        </div>
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">videocam</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">InVideo</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.7</span>
+<span>(3.2k)</span>
+</div>
+</div>
+</div>
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            Turn your ideas into videos instantly. The AI video generator for YouTube, TikTok, and Instagram.
+                        </p>
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Social</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Marketing</span>
+</div>
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Free Trial</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tool Card 4 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<!-- No reward tag example -->
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">mic</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">Descript</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.9</span>
+<span>(900)</span>
+</div>
+</div>
+</div>
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            There’s a new way to make video and podcasts. A good way. Descript is the simple, powerful, and fun way to edit.
+                        </p>
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Editing</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Podcast</span>
+</div>
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Free</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tool Card 5 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-yellow-500 border border-yellow-500/20">
+<span class="material-symbols-outlined text-[12px]">monetization_on</span>
+                            Commission
+                        </div>
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">animation</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">HeyGen</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.6</span>
+<span>(500)</span>
+</div>
+</div>
+</div>
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            Produce studio-quality videos with AI-generated avatars and voices. Scale your video production.
+                        </p>
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Business</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Sales</span>
+</div>
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Paid</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tool Card 6 -->
+<div class="group relative flex flex-col rounded-xl border border-white/5 bg-surface-dark p-5 shadow-glow-card transition-all hover:-translate-y-1 hover:border-secondary/50 hover:shadow-glow-card-hover">
+<div class="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/20">
+<span class="material-symbols-outlined text-[12px]">bolt</span>
+                            Free Credits
+                        </div>
+<div class="mb-4 flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
+<span class="material-symbols-outlined text-[24px]">translate</span>
+</div>
+<div>
+<h3 class="font-display text-lg font-bold text-white group-hover:text-secondary transition-colors">Rask AI</h3>
+<div class="flex items-center gap-1 text-xs text-white/50">
+<span class="material-symbols-outlined text-[12px] text-yellow-400">star</span>
+<span class="font-medium text-white">4.5</span>
+<span>(340)</span>
+</div>
+</div>
+</div>
+<p class="mb-4 text-sm leading-relaxed text-white/70 line-clamp-2">
+                            Automate localization with AI. Translate videos into 130+ languages, clone voices, and lip-sync effortlessly.
+                        </p>
+<div class="mb-6 flex flex-wrap gap-2">
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Dubbing</span>
+<span class="rounded bg-white/5 px-2 py-1 text-[10px] font-medium text-white/60">#Global</span>
+</div>
+<div class="mt-auto flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-white/40">Freemium</span>
+</div>
+<button class="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                View Tool
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-surface-dark text-white/50 hover:bg-surface-dark-lighter hover:text-white disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white shadow-glow-primary">1</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-surface-dark text-sm font-medium text-white/70 hover:bg-surface-dark-lighter hover:text-white transition-colors">2</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-surface-dark text-sm font-medium text-white/70 hover:bg-surface-dark-lighter hover:text-white transition-colors">3</button>
+<span class="px-2 text-white/30">...</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-surface-dark text-sm font-medium text-white/70 hover:bg-surface-dark-lighter hover:text-white transition-colors">8</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-surface-dark text-white/50 hover:bg-surface-dark-lighter hover:text-white">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
