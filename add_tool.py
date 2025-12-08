@@ -45,7 +45,7 @@ def analyze(md: str) -> dict:
     for m in genai.list_models():
       if "generateContent" in getattr(m, "supported_generation_methods", []):
         print(getattr(m, "name", ""))
-    model = genai.GenerativeModel("gemini-1.5-flash-latest", generation_config={"response_mime_type": "application/json"})
+    model = genai.GenerativeModel("gemini-2.5-flash", generation_config={"response_mime_type": "application/json"})
     text_prompt = (
       "You are an expert product analyst. Read the content and return STRICT JSON with keys: "
       "name_en, desc_en, pricing, name_zh_tw, desc_zh_tw, name_zh_cn, desc_zh_cn, category. "
