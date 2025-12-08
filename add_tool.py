@@ -104,8 +104,13 @@ def main():
   md = fetch_markdown(target)
   data = analyze(md)
   notion = NotionClient(auth=notion_token)
-  page_id = create_notion_page(notion, database_id, target, data)
-  print(page_id)
+  try:
+    page_id = create_notion_page(notion, database_id, target, data)
+    print(page_id)
+  except Exception as e:
+    print("Notion error: failed to create page. Verify NOTION_TOKEN access and NOTION_DATABASE_ID is the root database ID, not a page/view.")
+    print(str(e))
+    return
 
 if __name__ == "__main__":
   main()
