@@ -1,6 +1,7 @@
 // Notion REST fetch to avoid SDK runtime issues
 
 export type RewardVariant = 'primary' | 'accent-purple' | 'accent-green'
+import type { Locale } from './i18n'
 
 export type Tool = {
   imageUrl: string
@@ -120,10 +121,32 @@ function getRewardVariant(rewardType: string): RewardVariant {
   return 'primary'
 }
 
-function mapPageToTool(page: any): Tool {
+function localizedTitle(p: any, lang?: Locale): string {
+  if (lang === 'zh-TW') {
+    const tw = titleFromProperty(p.Name_ZH_TW || {})
+    if (tw) return tw
+  } else if (lang === 'zh-CN') {
+    const cn = titleFromProperty(p.Name_ZH_CN || {})
+    if (cn) return cn
+  }
+  return titleFromProperty(p.Title || p.Name || {})
+}
+
+function localizedDescription(p: any, lang?: Locale): string {
+  if (lang === 'zh-TW') {
+    const tw = descriptionFromProperty(p.Description_ZH_TW || {})
+    if (tw) return tw
+  } else if (lang === 'zh-CN') {
+    const cn = descriptionFromProperty(p.Description_ZH_CN || {})
+    if (cn) return cn
+  }
+  return descriptionFromProperty(p.Description || {})
+}
+
+function mapPageToTool(page: any, lang?: Locale): Tool {
   const p = page.properties || {}
-  const title = titleFromProperty(p.Title || p.Name || {})
-  const description = descriptionFromProperty(p.Description || {})
+  const title = localizedTitle(p, lang)
+  const description = localizedDescription(p, lang)
   const imageUrl = fileUrlFromProperty(p.Logo || p.Image || {})
   const category = selectValue(p.Category) || multiSelectFirst(p.Categories) || multiSelectFirst(p.Tags)
   const tags = (p.Tags?.multi_select || p.Categories?.multi_select || []).map((t: any) => t?.name).filter(Boolean)
@@ -135,16 +158,16 @@ function mapPageToTool(page: any): Tool {
   return { imageUrl, title, description, category, rating, rewardType, rewardVariant, tags, linkUrl, lastEdited }
 }
 
-export async function getTools(): Promise<Tool[]> {
+export async function getTools(lang?: Locale): Promise<Tool[]> {
   const databaseId = process.env.NOTION_DATABASE_ID as string
   try {
     const results = await queryDatabase(databaseId)
-    return results.map(mapPageToTool)
+    return results.map((r) => mapPageToTool(r, lang))
   } catch (e: any) {
     const msg = String(e?.message || '')
     if (msg.includes('is a page, not a database')) {
       const inlineResults = await findInlineDatabaseResultsFromPage(databaseId)
-      return inlineResults.map(mapPageToTool)
+      return inlineResults.map((r) => mapPageToTool(r, lang))
     }
     console.error('Notion query failed:', e)
     return []

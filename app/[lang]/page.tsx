@@ -8,16 +8,19 @@ import { getDictionary, Locale } from '@/lib/i18n'
 
 export const dynamic = 'force-dynamic'
 
-export default async function HomePage({ params }: { params: { lang: Locale } }) {
-  const dict = await getDictionary(params.lang)
-  const tools = await getTools().catch((e) => {
+type Props = { params: Promise<{ lang: Locale }> }
+
+export default async function HomePage(props: Props) {
+  const p = await props.params
+  const dict = await getDictionary(p.lang)
+  const tools = await getTools(p.lang).catch((e) => {
     console.error('getTools() failed on HomePage:', e)
     return []
   })
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar dict={dict} lang={params.lang} />
+      <Navbar dict={dict} lang={p.lang} />
       <main className="flex-grow">
         <HeroSection dict={dict} />
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

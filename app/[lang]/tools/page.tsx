@@ -1,7 +1,9 @@
 import { redirect } from 'next/navigation'
 import { Locale } from '@/lib/i18n'
 
-export default function ToolsRedirect({ params }: { params: { lang: Locale } }) {
-  redirect(`/${params.lang}/category`)
-}
+type Props = { params: Promise<{ lang: Locale }> }
 
+export default async function ToolsRedirect(props: Props) {
+  const p = await props.params
+  redirect(`/${p.lang}/category`)
+}

@@ -17,7 +17,7 @@ export default async function CategoryPage(props: Props) {
   const p = await props.params
   const sp = (await props.searchParams) || {}
   const dict = await getDictionary(p.lang)
-  const tools = await getTools().catch((e) => {
+  const tools = await getTools(p.lang).catch((e) => {
     console.error('getTools() failed on CategoryPage:', e)
     return []
   })

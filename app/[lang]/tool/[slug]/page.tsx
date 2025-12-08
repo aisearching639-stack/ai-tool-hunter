@@ -6,12 +6,14 @@ import PricingTable from '../../../../components/PricingTable'
 import ToolContent from '../../../../components/ToolContent'
 import StickyFooter from '../../../../components/StickyFooter'
 import { getDictionary, Locale } from '@/lib/i18n'
+import { getTools } from '@/lib/notion'
 
 type Props = { params: Promise<{ lang: Locale; slug: string }> }
 
 export default async function ToolDetailPage(props: Props) {
   const p = await props.params
   const dict = await getDictionary(p.lang)
+  const _tools = await getTools(p.lang).catch(() => [])
   const mockToolData = {
     breadcrumbs: [
       { label: 'Home', href: `/${p.lang}` },
