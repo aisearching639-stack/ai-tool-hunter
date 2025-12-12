@@ -7,6 +7,7 @@ import ToolContent from '../../../../components/ToolContent'
 import StickyFooter from '../../../../components/StickyFooter'
 import { getDictionary, Locale } from '@/lib/i18n'
 import { getTools } from '@/lib/notion'
+import { notFound } from 'next/navigation'
 
 type Props = { params: Promise<{ lang: Locale; slug: string }> }
 
@@ -14,6 +15,14 @@ export default async function ToolDetailPage(props: Props) {
   const p = await props.params
   const dict = await getDictionary(p.lang)
   const _tools = await getTools(p.lang).catch(() => [])
+  const mkSlug = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-')
+  const tool = _tools.find((t) => mkSlug(((t as any).technicalId || t.name) as string) === p.slug)
+  if (!tool) return notFound()
+  const breadcrumbs = [
+    { label: 'Home', href: `/${p.lang}` },
+    { label: tool.category || 'Tools', href: `/${p.lang}/category?filter=${encodeURIComponent(tool.category || '')}` },
+    { label: tool.name },
+  ]
   const mockToolData = {
     breadcrumbs: [
       { label: 'Home', href: `/${p.lang}` },
@@ -76,18 +85,18 @@ export default async function ToolDetailPage(props: Props) {
         <div className="flex flex-col items-center">
           <div className="w-full max-w-[1200px] px-4 md:px-8 lg:px-12 py-8 flex flex-col gap-8">
             <ToolHeader
-              breadcrumbs={mockToolData.breadcrumbs}
-              title={mockToolData.title}
-              logoUrl={mockToolData.logoUrl}
-              bestFor={mockToolData.bestFor}
-              rating={mockToolData.rating}
-              reviewCount={mockToolData.reviewCount}
-              offer={mockToolData.offer}
+              breadcrumbs={breadcrumbs}
+              title={tool.name}
+              logoUrl={tool.imageUrl}
+              bestFor={tool.category || ''}
+              rating={tool.rating || ''}
+              reviewCount={''}
+              offer={{ headline: '', sublabel: '', verifiedText: '' }}
             />
-            <ToolGallery mainMediaUrl={mockToolData.gallery.mainMediaUrl} screenshots={mockToolData.gallery.screenshots} />
+            <ToolGallery mainMediaUrl={tool.imageUrl} screenshots={[]} />
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
               <div className="lg:col-span-2 flex flex-col gap-8">
-                <ToolContent summary={mockToolData.content.summary} pros={mockToolData.content.pros} cons={mockToolData.content.cons} />
+                <ToolContent summary={[tool.description || '']} pros={[]} cons={[]} />
                 <div className="bg-surface-dark border border-border-dark rounded-xl p-6">
                   <h3 className="text-xl font-display font-bold text-white mb-6">Community Rating</h3>
                   <div className="flex flex-wrap gap-x-12 gap-y-6">
@@ -115,7 +124,7 @@ export default async function ToolDetailPage(props: Props) {
                 </div>
               </div>
               <div className="flex flex-col gap-6">
-                <PricingTable plans={mockToolData.pricing.plans} />
+                <PricingTable plans={[]} />
                 <div className="bg-surface-dark border border-border-dark rounded-xl p-6">
                   <h3 className="text-lg font-bold text-white mb-4">Specs</h3>
                   <div className="space-y-4">

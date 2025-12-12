@@ -161,11 +161,23 @@ function localizedDescription(p: any, lang?: Locale): string {
   return descriptionFromProperty(p.Description || {})
 }
 
+function localizedName(p: any, lang?: Locale): string {
+  if (lang === 'zh-TW') {
+    const tw = descriptionFromProperty(p.Name_ZH_TW || {})
+    if (tw) return tw
+  } else if (lang === 'zh-CN') {
+    const cn = descriptionFromProperty(p.Name_ZH_CN || {})
+    if (cn) return cn
+  }
+  const base = descriptionFromProperty(p['產品名稱 (Name)'] || {})
+  if (base) return base
+  return localizedTitle(p, lang)
+}
+
 function mapPageToTool(page: any, lang?: Locale): Tool {
   const p = page.properties || {}
-  const nameRt = descriptionFromProperty(p['產品名稱 (Name)'] || {})
+  const name = localizedName(p, lang)
   const title = localizedTitle(p, lang)
-  const name = nameRt || title
   const description = localizedDescription(p, lang)
   const imageUrl = fileUrlFromProperty(p.Logo || p.Image || {})
   const category = selectValue(p.Category) || multiSelectFirst(p.Categories) || multiSelectFirst(p.Tags)
