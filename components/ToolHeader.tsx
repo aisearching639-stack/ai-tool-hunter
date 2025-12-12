@@ -4,11 +4,12 @@ interface ToolHeaderProps {
   bestFor: string
   rating: string
   reviewCount: string
+  description?: string
   breadcrumbs: { label: string; href?: string }[]
   offer: { headline: string; sublabel: string; verifiedText: string }
 }
 
-export default function ToolHeader({ title, logoUrl, bestFor, rating, reviewCount, breadcrumbs, offer }: ToolHeaderProps) {
+export default function ToolHeader({ title, logoUrl, bestFor, rating, reviewCount, description, breadcrumbs, offer }: ToolHeaderProps) {
   const toProxy = (u: string) => (u?.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(u)}` : u)
   return (
     <div className="flex flex-col gap-6 p-6 rounded-2xl bg-surface-dark border border-border-dark shadow-glow relative overflow-hidden">
@@ -33,7 +34,9 @@ export default function ToolHeader({ title, logoUrl, bestFor, rating, reviewCoun
               <h1 className="text-3xl sm:text-4xl font-display font-bold text-white">{title}</h1>
               <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-primary/20 to-accent-purple/20 border border-primary/30 text-primary backdrop-blur-sm">Best for: {bestFor}</span>
             </div>
-            <p className="text-text-light text-lg max-w-xl">The leading AI image generator for professional artists, creating high-fidelity visuals from text descriptions.</p>
+            {description && (
+              <p className="text-text-light text-lg max-w-xl">{description}</p>
+            )}
             <div className="flex items-center gap-2 mt-1">
               <div className="flex text-primary">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -55,7 +58,9 @@ export default function ToolHeader({ title, logoUrl, bestFor, rating, reviewCoun
               </div>
               <span className="material-symbols-outlined text-neon text-3xl">monetization_on</span>
             </div>
-            <p className="text-gray-300 text-sm mb-4">Get 200 Fast Hours Credits instantly upon signup via our link.</p>
+            {offer.verifiedText && (
+              <p className="text-gray-300 text-sm mb-4">{offer.verifiedText}</p>
+            )}
             <div className="flex items-center gap-2 text-xs text-text-light">
               <span className="material-symbols-outlined text-sm">verified</span>
               {offer.verifiedText}

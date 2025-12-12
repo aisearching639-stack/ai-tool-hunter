@@ -1,0 +1,5 @@
+﻿Id,Name,price,currency,billingCycle,note,popular,popularLabel,order
+AD005,Basic,10,USD,Monthly,3.3 hr/mo Fast GPU,No,,1
+,Standard,30,USD,Monthly,15 hr/mo Fast GPU,Yes,Most Popular,2
+,Pro,60,USD,Monthly,30 hr/mo + Stealth,No,,3
+,,,,,,No,,

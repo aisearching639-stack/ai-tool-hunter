@@ -1,0 +1,8 @@
+technicalId/slug,name,price,currency,billingCycle,note,popular,popularLabel,order
+a001-basic,Basic,10,USD,Monthly,3.3 hr/mo Fast GPU,No,,1
+a001-standard,Standard,30,USD,Monthly,15 hr/mo Fast GPU,Yes,Most Popular,2
+a001-pro,Pro,60,USD,Monthly,30 hr/mo + Stealth,No,,3
+a002-starter,Starter,0,USD,Monthly,Free tier with limits,No,,1
+a002-pro,Pro,29,USD,Monthly,Unlimited projects,Yes,Most Popular,2
+a003-lite,Lite,15,USD,Monthly,Basic editing tools,No,,1
+a003-studio,Studio,45,USD,Monthly,Advanced timeline & effects,Yes,Most Popular,2

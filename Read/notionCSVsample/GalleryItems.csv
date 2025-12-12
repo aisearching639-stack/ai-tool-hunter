@@ -1,0 +1,9 @@
+technicalId/slug,title,type,file,url,label,order
+a001-video,Promotional Video,video,,https://REPLACE_WITH_VIDEO_URL,Promotional Video,1
+a001-image-1,Screenshot 1,image,,https://REPLACE_WITH_IMAGE_URL,,2
+a001-image-2,Screenshot 2,image,,https://REPLACE_WITH_IMAGE_URL,,3
+a002-image-1,Screenshot 1,image,,https://REPLACE_WITH_IMAGE_URL,,1
+a002-image-2,Screenshot 2,image,,https://REPLACE_WITH_IMAGE_URL,,2
+a002-video,Feature Overview,video,,https://REPLACE_WITH_VIDEO_URL,Feature Overview,3
+a003-video,Trailer,video,,https://REPLACE_WITH_VIDEO_URL,Trailer,1
+a003-image-1,Screenshot 1,image,,https://REPLACE_WITH_IMAGE_URL,,2

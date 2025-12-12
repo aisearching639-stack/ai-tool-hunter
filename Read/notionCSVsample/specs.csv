@@ -1,0 +1,13 @@
+technicalId/slug,name,value,unit,order
+a001-model-version,Model Version,v6.0,,1
+a001-output-resolution,Output Resolution,Up to 2048x2048,,2
+a001-aspect-ratios,Aspect Ratios,Any,,3
+a001-platform,Platform,Web,,4
+a002-runtime,Runtime,Node.js 18+,,1
+a002-editor,Editor,Monaco-based,,2
+a002-integrations,Integrations,GitHub/GitLab,,3
+a002-platform,Platform,Web,,4
+a003-max-resolution,Max Resolution,4K,,1
+a003-codecs,Codecs,H.264/HEVC,,2
+a003-timeline,Timeline,Multi-track,,3
+a003-platform,Platform,Desktop,,4
