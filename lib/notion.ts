@@ -163,15 +163,25 @@ function localizedDescription(p: any, lang?: Locale): string {
 
 function localizedName(p: any, lang?: Locale): string {
   if (lang === 'zh-TW') {
-    const tw = descriptionFromProperty(p.Name_ZH_TW || {})
+    const tw = descriptionFromProperty(p.Name_ZH_TW || p['Name_ZH_TW'] || {})
     if (tw) return tw
   } else if (lang === 'zh-CN') {
-    const cn = descriptionFromProperty(p.Name_ZH_CN || {})
+    const cn = descriptionFromProperty(p.Name_ZH_CN || p['Name_ZH_CN'] || {})
     if (cn) return cn
   }
-  const base = descriptionFromProperty(p['產品名稱 (Name)'] || {})
-  if (base) return base
-  return localizedTitle(p, lang)
+  const candidates = [
+    '產品名稱 (Name)',
+    'Name',
+    'name',
+    'English Name',
+    '英文名稱',
+    'Product Name',
+  ]
+  for (const key of candidates) {
+    const v = descriptionFromProperty(p[key] || {})
+    if (v) return v
+  }
+  return ''
 }
 
 function mapPageToTool(page: any, lang?: Locale): Tool {
