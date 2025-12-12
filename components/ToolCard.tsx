@@ -4,24 +4,27 @@ type RewardVariant = 'primary' | 'accent-purple' | 'accent-green'
 type Dict = { cta?: { visit?: string; try?: string } }
 export default function ToolCard({
   imageUrl,
-  title,
+  name,
   description,
   category,
   rating,
   rewardType,
   rewardVariant,
+  technicalId,
   dict,
 }: {
   imageUrl: string
-  title: string
+  name: string
   description: string
   category: string
   rating: string
   rewardType: string
   rewardVariant: RewardVariant
+  technicalId?: string
   dict?: Dict
 }) {
-  const slug = title
+  const base = technicalId || name
+  const slug = base
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
@@ -81,7 +84,7 @@ export default function ToolCard({
       <div className="flex flex-1 flex-col gap-2 min-w-0 pr-28">
         <div>
           <div>
-            <h3 className="font-display text-xl font-bold text-white group-hover:text-primary transition-colors">{title}</h3>
+            <h3 className="font-display text-xl font-bold text-white group-hover:text-primary transition-colors">{name}</h3>
             <p className="text-sm text-text-light mt-1 line-clamp-2">{description}</p>
           </div>
         </div>

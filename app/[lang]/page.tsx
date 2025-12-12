@@ -35,7 +35,7 @@ export default async function HomePage(props: Props) {
               {tools.length === 0 ? (
                 <p className="text-sm text-text-light">No tools found yet.</p>
               ) : (
-                tools.map((t) => <ToolCard key={t.title} {...t} dict={dict} />)
+                tools.map((t) => <ToolCard key={t.name} {...t} dict={dict} />)
               )}
             </div>
             <div className="lg:col-span-4">

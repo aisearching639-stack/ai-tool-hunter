@@ -27,7 +27,7 @@ export default async function CategoryPage(props: Props) {
   const filteredBase = q ? tools.filter((t) => t.category && norm(t.category) === norm(q)) : tools
   const filtered = s
     ? filteredBase.filter((t) => {
-        const hay = [t.title, t.description, t.category, ...(t as any).tags || []]
+        const hay = [t.name, t.description, t.category, ...(t as any).tags || []]
           .filter(Boolean)
           .map((v: string) => norm(v))
           .join(' ')
@@ -45,7 +45,7 @@ export default async function CategoryPage(props: Props) {
           <div className="flex-1 bg-background-dark p-6 lg:p-8">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {(filtered.length === 0 ? tools : filtered).map((t) => (
-                <ToolCard key={t.title} {...t} dict={dict} />
+                <ToolCard key={t.name} {...t} dict={dict} />
               ))}
             </div>
             <Pagination />

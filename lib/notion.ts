@@ -5,12 +5,14 @@ import type { Locale } from './i18n'
 
 export type Tool = {
   imageUrl: string
-  title: string
+  name: string
+  title?: string
   description: string
   category: string
   rating: string
   rewardType: string
   rewardVariant: RewardVariant
+  technicalId?: string
   tags?: string[]
   linkUrl?: string
   lastEdited?: string
@@ -145,7 +147,9 @@ function localizedDescription(p: any, lang?: Locale): string {
 
 function mapPageToTool(page: any, lang?: Locale): Tool {
   const p = page.properties || {}
+  const nameRt = descriptionFromProperty(p['產品名稱 (Name)'] || {})
   const title = localizedTitle(p, lang)
+  const name = nameRt || title
   const description = localizedDescription(p, lang)
   const imageUrl = fileUrlFromProperty(p.Logo || p.Image || {})
   const category = selectValue(p.Category) || multiSelectFirst(p.Categories) || multiSelectFirst(p.Tags)
@@ -155,7 +159,8 @@ function mapPageToTool(page: any, lang?: Locale): Tool {
   const linkUrl = urlFromProperty(p.Affiliate || p.URL || p.Website || p.Link || {})
   const lastEdited = page.last_edited_time || undefined
   const rewardVariant = getRewardVariant(rewardType)
-  return { imageUrl, title, description, category, rating, rewardType, rewardVariant, tags, linkUrl, lastEdited }
+  const technicalId = titleFromProperty(p['ID / 技術名稱'] || {})
+  return { imageUrl, name, title: name, description, category, rating, rewardType, rewardVariant, technicalId, tags, linkUrl, lastEdited }
 }
 
 export async function getTools(lang?: Locale): Promise<Tool[]> {
