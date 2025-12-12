@@ -5,6 +5,8 @@ export const dynamic = 'force-dynamic'
 const ALLOWED_HOSTS = new Set([
   'images.unsplash.com',
   'lh3.googleusercontent.com',
+  'prod-files-secure.s3.us-west-2.amazonaws.com',
+  's3.us-west-2.amazonaws.com',
 ])
 
 export async function GET(req: NextRequest) {
@@ -30,4 +32,3 @@ export async function GET(req: NextRequest) {
     },
   })
 }
-
