@@ -115,6 +115,22 @@ function numberValue(prop: any): string {
   return v == null ? '' : String(v)
 }
 
+function isHexUuid(id: string): boolean {
+  return /^[0-9a-fA-F]{32}$/.test(id || '')
+}
+
+function isHyphenUuid(id: string): boolean {
+  return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id || '')
+}
+
+function toHyphenUuid(id: string): string {
+  if (isHexUuid(id)) {
+    const s = id.toLowerCase()
+    return `${s.slice(0,8)}-${s.slice(8,12)}-${s.slice(12,16)}-${s.slice(16,20)}-${s.slice(20)}`
+  }
+  return id
+}
+
 function getRewardVariant(rewardType: string): RewardVariant {
   const s = rewardType.toLowerCase()
   if (s.includes('cash') || s.includes('commission')) return 'accent-green'
@@ -165,13 +181,19 @@ function mapPageToTool(page: any, lang?: Locale): Tool {
 
 export async function getTools(lang?: Locale): Promise<Tool[]> {
   const databaseId = process.env.NOTION_DATABASE_ID as string
+  const normalizedId = toHyphenUuid(databaseId)
   try {
-    const results = await queryDatabase(databaseId)
+    const results = await queryDatabase(normalizedId)
     return results.map((r) => mapPageToTool(r, lang))
   } catch (e: any) {
     const msg = String(e?.message || '')
-    if (msg.includes('is a page, not a database')) {
-      const inlineResults = await findInlineDatabaseResultsFromPage(databaseId)
+    if (msg.includes('is a page, not a database') || msg.includes('object_not_found') || msg.includes('Could not find database')) {
+      const pageId = normalizedId
+      if (!isHyphenUuid(pageId)) {
+        console.error('Invalid Notion ID format for page fallback:', (databaseId || '').slice(0, 4))
+        return []
+      }
+      const inlineResults = await findInlineDatabaseResultsFromPage(pageId)
       return inlineResults.map((r) => mapPageToTool(r, lang))
     }
     console.error('Notion query failed:', e)
